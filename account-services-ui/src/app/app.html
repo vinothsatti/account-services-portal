@@ -1,0 +1,203 @@
+
+<a class="skip-link" href="#main-content">
+  Skip to main content
+</a>
+
+<header class="bg-primary text-white py-3">
+  <div class="container d-flex justify-content-between align-items-center flex-wrap gap-2">
+    <h1 class="h4 m-0">Account Services Portal</h1>
+
+    <nav aria-label="Primary navigation">
+      <a class="text-white me-3" href="#overview">Overview</a>
+      <a class="text-white me-3" href="#transactions">Transactions</a>
+      <a class="text-white" href="#requests">Service requests</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" class="container py-4" tabindex="-1">
+
+  <p class="text-secondary">
+    Portfolio demonstration · Fictional account data only
+  </p>
+
+  <!-- API Error Message -->
+  @if (apiError) {
+    <div class="alert alert-danger" role="alert">
+      {{ apiError }}
+    </div>
+  }
+
+  <!-- ACCOUNT OVERVIEW -->
+  <section id="overview" aria-labelledby="overview-title" class="mb-4">
+    <h2 id="overview-title" class="h3">Account overview</h2>
+
+    @if (loading) {
+      <p role="status">Loading account information...</p>
+    } @else if (account) {
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <p class="text-secondary mb-1">
+            {{ account.accountName }}
+            {{ account.accountNumber }}
+          </p>
+
+          <p class="fs-2 fw-bold mb-0">
+            {{ account.availableBalance | currency:'USD' }}
+          </p>
+
+          <p class="mb-0">Available balance</p>
+        </div>
+      </div>
+    } @else {
+      <p>Account information is unavailable.</p>
+    }
+  </section>
+
+  <!-- TRANSACTIONS -->
+  <section id="transactions" aria-labelledby="transactions-title" class="mb-4">
+    <h2 id="transactions-title" class="h3">
+      Recent transactions
+    </h2>
+
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <caption>
+          Three most recent fictional account transactions
+        </caption>
+
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Description</th>
+            <th scope="col" class="text-end">Amount</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          @for (transaction of transactions; track transaction.id) {
+            <tr>
+              <td>{{ transaction.date }}</td>
+              <td>{{ transaction.description }}</td>
+              <td class="text-end">
+                {{ transaction.amount | currency:'USD' }}
+              </td>
+            </tr>
+          } @empty {
+            <tr>
+              <td colspan="3">
+                No transactions available.
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- SERVICE REQUESTS -->
+  <section id="requests" aria-labelledby="requests-title" class="mb-4">
+    <h2 id="requests-title" class="h3">
+      Submit a service request
+    </h2>
+
+    <p>Required fields are marked with an asterisk (*).</p>
+
+    <form
+      (ngSubmit)="submitRequest()"
+      novalidate
+      class="card shadow-sm">
+
+      <div class="card-body">
+
+        <!-- Request Type -->
+        <div class="mb-3">
+          <label for="request-type" class="form-label">
+            Request type *
+          </label>
+
+          <select
+            id="request-type"
+            name="requestType"
+            class="form-select"
+            [ngModel]="serviceType()"
+            (ngModelChange)="serviceType.set($event)"
+            [attr.aria-invalid]="attempted() && !serviceType()"
+            [attr.aria-describedby]="attempted() && !serviceType() ? 'type-error' : null"
+            required>
+
+            <option value="">Select a request type</option>
+            <option value="Address update">Address update</option>
+            <option value="Statement request">Statement request</option>
+            <option value="General inquiry">General inquiry</option>
+          </select>
+
+          @if (attempted() && !serviceType()) {
+            <p id="type-error" class="text-danger mt-1">
+              Select a request type.
+            </p>
+          }
+        </div>
+
+        <!-- Request Details -->
+        <div class="mb-3">
+          <label for="request-details" class="form-label">
+            Request details *
+          </label>
+
+          <textarea
+            id="request-details"
+            name="requestDetails"
+            class="form-control"
+            rows="3"
+            [ngModel]="details()"
+            (ngModelChange)="details.set($event)"
+            [attr.aria-invalid]="attempted() && !details().trim()"
+            [attr.aria-describedby]="attempted() && !details().trim() ? 'details-error' : null"
+            required>
+          </textarea>
+
+          @if (attempted() && !details().trim()) {
+            <p id="details-error" class="text-danger mt-1">
+              Enter request details.
+            </p>
+          }
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Submit request
+        </button>
+
+        <!-- Success Message -->
+        @if (submitted()) {
+          <p role="status" class="alert alert-success mt-3 mb-0">
+            Request added to this demo session.
+            No data was sent to a server.
+          </p>
+        }
+
+      </div>
+    </form>
+
+    <!-- Submitted Requests -->
+    @if (requests().length) {
+      <div class="mt-3">
+        <h3 class="h5">Requests in this session</h3>
+
+        <ul>
+          @for (request of requests(); track $index) {
+            <li>
+              {{ request.type }}: {{ request.details }}
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </section>
+
+</main>
+
+<footer class="container py-3 border-top text-secondary small">
+  Demonstration project — not affiliated with any financial institution
+  or government agency.
+</footer>
