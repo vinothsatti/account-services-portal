@@ -1,3 +1,8 @@
+## Application Screenshot
+
+![Account Services Portal dashboard](screenshots/dashboard.png)
+
+
 # Account Services Portal
 
 An accessibility-focused, full-stack portfolio application built with **Angular 22, TypeScript, Bootstrap, and ASP.NET Core 8 Web API**.
