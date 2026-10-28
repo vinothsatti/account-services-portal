@@ -1,3 +1,9 @@
+## JAWS Screen Reader Demonstration
+
+This video demonstrates screen-reader accessibility testing
+of the Account Services Portal using JAWS on Windows.
+
+[Watch the JAWS Screen Reader Demonstration](accessibility-demo/jaws-screen-reader-demo.mp4)
 
 # Account Services Portal
 
