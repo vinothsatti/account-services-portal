@@ -1,13 +1,13 @@
-## Application Screenshot
-
-![Account Services Portal dashboard](screenshots/dashboard.png)
-
 
 # Account Services Portal
 
 An accessibility-focused, full-stack portfolio application built with **Angular 22, TypeScript, Bootstrap, and ASP.NET Core 8 Web API**.
 
-The project demonstrates front-end development, API integration, semantic HTML, accessible form design, and responsive UI implementation.
+The project demonstrates front-end development, REST API integration, semantic HTML, accessible form design, and responsive UI implementation.
+
+## Application Screenshot
+
+![Account Services Portal dashboard](screenshots/dashboard.png)
 
 ## Technology Stack
 
@@ -25,36 +25,36 @@ The project demonstrates front-end development, API integration, semantic HTML, 
 - Responsive layout using Bootstrap
 - Fictional financial data for demonstration purposes
 
-Service requests are stored in the application's in-memory client-side state and are not submitted to the API or persisted.
+Service requests are stored in client-side memory and are not submitted to the API or persisted.
 
 ## Accessibility Implementation
 
 The application includes:
 
-- Semantic page landmarks and heading hierarchy
+- Semantic HTML landmarks and heading hierarchy
 - Skip-to-main-content navigation
 - Keyboard-accessible links and form controls
-- Visible keyboard focus
+- Visible keyboard focus indicators
 - Explicit form labels and required-field indicators
 - `aria-invalid` and `aria-describedby` for validation feedback
 - Status messages for form submission
-- Properly labeled navigation and table column headers
+- Labeled navigation and table column headers
 
 ## Accessibility Testing
 
-**Automated testing**
+### Automated Testing
 
-- Tool: axe DevTools (axe-core 4.13.0)
-- Standard: WCAG 2.1 AA
-- Result: **0 automated accessibility violations detected** on the initial scanned page state
+- **Tool:** axe DevTools (axe-core 4.13.0)
+- **Standard selected:** WCAG 2.1 AA
+- **Result:** 0 automated accessibility violations detected on the scanned page state
 
-**Manual testing**
+### Manual Testing
 
 - Keyboard navigation: Passed
 - Skip navigation: Passed
 - Form validation and submission feedback: Passed
 
-Automated testing does not establish full WCAG conformance. Additional screen-reader and interaction-state testing may be necessary.
+Automated testing does not establish full WCAG 2.1 AA conformance. Additional screen-reader and interaction-state testing may be necessary.
 
 ## Running the Application Locally
 
@@ -64,7 +64,7 @@ Automated testing does not establish full WCAG conformance. Additional screen-re
 - Angular CLI
 - .NET 8 SDK
 
-### Start the backend
+### Start the Backend
 
 From the `AccountServicesApi` directory:
 
@@ -72,20 +72,20 @@ From the `AccountServicesApi` directory:
 dotnet run --urls http://localhost:5000
 ```
 
-### Start the frontend
+### Start the Frontend
 
 From the `account-services-ui` directory:
 
 ```powershell
-npm install
-ng serve
+npm.cmd install
+ng.cmd serve
 ```
 
-On Windows PowerShell environments where npm scripts are restricted, use `npm.cmd install` and `ng.cmd serve`.
+Open http://localhost:4200 in your browser.
 
-Open `http://localhost:4200`.
+The Angular frontend communicates with the ASP.NET Core API at http://localhost:5000.
 
-The Angular frontend communicates with the ASP.NET Core API at `http://localhost:5000`.
+Both applications must be running to load the account and transaction data.
 
 ## API Endpoints
 
@@ -99,8 +99,15 @@ The Angular frontend communicates with the ASP.NET Core API at `http://localhost
 
 ```text
 AccountServicesPortal/
-├── account-services-ui/    # Angular frontend
-├── AccountServicesApi/     # ASP.NET Core Web API
+├── account-services-ui/
+│   ├── src/
+│   ├── angular.json
+│   └── package.json
+├── AccountServicesApi/
+│   ├── Program.cs
+│   └── AccountServicesApi.csproj
+├── screenshots/
+│   └── dashboard.png
 ├── .gitignore
 └── README.md
 ```
