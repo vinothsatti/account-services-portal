@@ -1,0 +1,19 @@
+# Angular
+**/node_modules/
+**/.angular/
+**/dist/
+**/coverage/
+
+# ASP.NET Core
+**/bin/
+**/obj/
+
+# Visual Studio and VS Code
+**/.vs/
+**/.vscode/
+*.user
+*.suo
+
+# Local configuration
+.env
+.env.*
